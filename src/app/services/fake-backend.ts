@@ -28,14 +28,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             case request.url.includes('/cars') && request.method === 'POST':
                 return this.createCar(request.body);
             case request.url.includes('/cars') && request.method === 'GET':
-                return this.getCars(request.params.get('filter'));
+                return this.getCars(request.url.split('/')[4]);
+            case request.url.includes('/cars') && request.method === 'DELETE':
+                return this.deleteCar(+request.url.split('/')[4]);
             default:
                 return next.handle(request);
         }
     }
 
     getCars(filter?: string | null) {
-
+        cars = localStorageCars ? JSON.parse(localStorageCars) : [];
         if (filter) {
             cars = _.filter(cars, function(c) { return  _.includes(c.licensePlate.toLowerCase(), filter.toLowerCase()); });
         }
@@ -54,8 +56,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         return of(new HttpResponse({ status: 200, body: cars }));
     }
 
-    deleteCar(car: Car) {
-        cars = _.filter(cars, function(c) { return c.id === car.id; });
+    deleteCar(carId: number) {
+        cars = _.filter(cars, function(c) { return c.id === carId; });
         localStorage.setItem('cars', JSON.stringify(cars));
         return of(new HttpResponse({ status: 200, body: cars }));
     }

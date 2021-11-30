@@ -23,7 +23,7 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       color: ['', Validators.required],
-      licensePlate: ['', Validators.required]
+      licensePlate: ['', [Validators.required, Validators.pattern("^([A-Za-z]{2}-?[0-9]{3}-?[A-Za-z]{2})?([A-Za-z]{3}-?[0-9]{3})?$")]]
     });
   }
 

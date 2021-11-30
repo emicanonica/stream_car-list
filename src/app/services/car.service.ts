@@ -16,7 +16,7 @@ export class CarService {
   public getCars(filter?: string):Observable<any>{
     filter = filter? filter : '';
 
-    const url = environment.API_BASE_PATH + '/cars?filter=' + filter;
+    const url = environment.API_BASE_PATH + '/cars/' + filter;
     return this.httpClient.get<any>(url)
       .pipe(map((res)=>{
         return res;
@@ -29,5 +29,13 @@ export class CarService {
       .pipe(map((res)=>{
         return res;
       }));
+  }
+
+  public deleteCar(car: Car):Observable<any>{
+    const url = environment.API_BASE_PATH + '/cars/' + car.id;
+    return this.httpClient.delete<any>(url)
+      .pipe(map((res)=>{
+        return res;
+      }))
   }
 }

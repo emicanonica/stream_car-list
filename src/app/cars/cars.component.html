@@ -1,11 +1,23 @@
 <div class="container card mt-5">
     <h4 class="card-header">Listado de autos</h4>
     <div class="container card-body mt-5">
+
         <div class="row">
             <div class="col-12">
                 <button type="button" class="btn btn-primary" (click)="goToForm()">Crear Auto</button>
             </div>
         </div>
+
+        <h4 class="text-info font-weight-bold mt-3" for="color">Buqueda por patente</h4>
+        <div class="row input-group p-3">
+            <input [(ngModel)]="searchFilter" type="text" class="form-control" placeholder="Ingrese una patente"
+                aria-label="Ingrese una patente" aria-describedby="basic-addon2"
+                (keyup)="filter()">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" (click)="filter()">Buscar</button>
+            </div>
+        </div>
+
         <div class="row mt-5">
             <div class="col-12">
                 <table class="table">
@@ -13,7 +25,8 @@
                         <tr>
                             <th scope="col">id</th>
                             <th scope="col">color</th>
-                            <th scope="col">License plate</th>
+                            <th scope="col">Patente</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -21,6 +34,9 @@
                             <td>{{car.id}}</td>
                             <td>{{car.color}}</td>
                             <td>{{car.licensePlate}}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger" (click)="delete(car)">Eliminar</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
