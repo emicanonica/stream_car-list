@@ -1,0 +1,27 @@
+<div class="container card mt-5">
+    <h4 class="card-header">Crear Auto</h4>
+    <div class="card-body" *ngIf="form">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="color">Color</label>
+                <input type="text" formControlName="color" class="form-control" [ngClass]="{ 'is-invalid': form.get('color')?.invalid }" />
+                <div *ngIf="form.get('color')?.invalid" class="invalid-feedback">
+                    <div *ngIf="form.get('color')?.hasError('required')">el color es requerido</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="licensePlate">Patente</label>
+                <input type="text" formControlName="licensePlate" class="form-control" [ngClass]="{ 'is-invalid': form.get('licensePlate')?.invalid }" />
+                <div *ngIf="form.get('licensePlate')?.invalid" class="invalid-feedback">
+                    <div *ngIf="form.get('licensePlate')?.hasError('required')">la patente es requerida</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button [disabled]="loading" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Crear
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

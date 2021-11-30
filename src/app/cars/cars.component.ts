@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Car } from '../interfaces/car';
+import { Router } from '@angular/router';
+import { Car } from '../interfaces/car.interface';
+import { CarService } from '../services/car.service';
 
 @Component({
   selector: 'app-cars',
@@ -8,17 +10,21 @@ import { Car } from '../interfaces/car';
 })
 export class CarsComponent implements OnInit {
 
-  cars: Car[] = [
-    {
-      id:1,
-      color: 'blue',
-      licensePlate: 'AAA123'
-    }
-  ];
+  cars: Car[] = [];
 
-  constructor() { }
+  constructor(
+    private carService: CarService,
+    public router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.carService.getCars().subscribe( cars =>{
+      this.cars = cars ?? [];
+    });
+  }
+
+  goToForm() {
+    this.router.navigate(['/form']);
   }
 
 }
