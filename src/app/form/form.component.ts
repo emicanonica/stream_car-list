@@ -38,7 +38,7 @@ export class FormComponent implements OnInit {
       licensePlate: this.form.get('licensePlate')?.value,
     }
     this.carService.createCar(car).subscribe(
-            data => {
+            cars => {
                 this.router.navigate(['/home']);
             },
             error => {

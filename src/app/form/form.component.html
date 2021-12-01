@@ -11,7 +11,7 @@
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="form-group">
                 <label class="text-info font-weight-bold" for="color">Color</label>
-                <input type="text" formControlName="color" class="form-control" [ngClass]="{ 'is-invalid': form.get('color')?.invalid && (form.get('color')?.touched || form.get('color')?.dirty) }" />
+                <input type="text" autofocus formControlName="color" class="form-control" [ngClass]="{ 'is-invalid': form.get('color')?.invalid && (form.get('color')?.touched || form.get('color')?.dirty) }" />
                 <div *ngIf="form.get('color')?.invalid && (form.get('color')?.touched || form.get('color')?.dirty)" class="invalid-feedback">
                     <div *ngIf="form.get('color')?.hasError('required')">el color es requerido</div>
                 </div>

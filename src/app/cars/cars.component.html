@@ -23,7 +23,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">id</th>
+                            <th scope="col">#</th>
                             <th scope="col">color</th>
                             <th scope="col">Patente</th>
                             <th scope="col">Acciones</th>
@@ -31,7 +31,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let car of cars">
-                            <td>{{car.id}}</td>
+                            <td>{{cars.indexOf(car) +1}}</td>
                             <td>{{car.color}}</td>
                             <td>{{car.licensePlate}}</td>
                             <td>
@@ -40,6 +40,8 @@
                         </tr>
                     </tbody>
                 </table>
+                <h4 class="text-center" *ngIf="cars.length < 1 && !searchFilter"> La lista está vacia </h4>
+                <h4 class="text-center" *ngIf="cars.length < 1 && searchFilter"> No hay resultados </h4>
             </div>
         </div>
     </div>

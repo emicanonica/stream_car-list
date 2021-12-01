@@ -32,7 +32,7 @@ export class CarService {
   }
 
   public deleteCar(car: Car):Observable<any>{
-    const url = environment.API_BASE_PATH + '/cars/' + car.id;
+    const url = environment.API_BASE_PATH + '/cars/' + car.licensePlate;
     return this.httpClient.delete<any>(url)
       .pipe(map((res)=>{
         return res;

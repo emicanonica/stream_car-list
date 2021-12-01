@@ -30,14 +30,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             case request.url.includes('/cars') && request.method === 'GET':
                 return this.getCars(request.url.split('/')[4]);
             case request.url.includes('/cars') && request.method === 'DELETE':
-                return this.deleteCar(+request.url.split('/')[4]);
+                return this.deleteCar(request.url.split('/')[4]);
             default:
                 return next.handle(request);
         }
     }
 
     getCars(filter?: string | null) {
-        cars = localStorageCars ? JSON.parse(localStorageCars) : [];
+        this.refresh();
         if (filter) {
             cars = _.filter(cars, function(c) { return  _.includes(c.licensePlate.toLowerCase(), filter.toLowerCase()); });
         }
@@ -45,7 +45,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     createCar(car: Car) {
-
+        this.refresh();
         if (cars.find(c => c.licensePlate === car.licensePlate)) {
             return throwError({ message: 'Ya existe un auto con esta patente' });
         }
@@ -56,9 +56,15 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         return of(new HttpResponse({ status: 200, body: cars }));
     }
 
-    deleteCar(carId: number) {
-        cars = _.filter(cars, function(c) { return c.id === carId; });
+    deleteCar(licensePlate: string) {
+        this.refresh();
+        cars = _.filter(cars, function(c) { return c.licensePlate !== licensePlate; });
         localStorage.setItem('cars', JSON.stringify(cars));
         return of(new HttpResponse({ status: 200, body: cars }));
+    }
+
+    refresh() {
+        localStorageCars = localStorage.getItem('cars');
+        cars = localStorageCars ? JSON.parse(localStorageCars) : [];
     }
 }

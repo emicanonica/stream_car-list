@@ -19,7 +19,7 @@ export class CarsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.carService.getCars().subscribe( cars =>{
+    this.carService.getCars(this.searchFilter).subscribe( cars =>{
       this.cars = cars ?? [];
     },
     error => {
@@ -43,7 +43,7 @@ export class CarsComponent implements OnInit {
   delete(car: Car) {
     if(confirm('¿Eliminar auto con patente ' + car.licensePlate + '?')) {
       this.carService.deleteCar(car).subscribe( cars => {
-        this.cars = cars;
+        this.filter();
       },
       error => {
         alert(error.message);
