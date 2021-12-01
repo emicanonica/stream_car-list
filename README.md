@@ -1,6 +1,27 @@
 # StreamCarList
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
+## Instalation
+
+Download or clone the Angular project source code from https://github.com/emicanonica/stream_car-list
+
+Install all required npm packages by running
+
+`npm install`
+
+
+## Start App
+
+Start the app by running 'npm start' from the source code
+
+`npm start`
+
+
+## Run Test
+
+Run the tests by running 'npm run test' from the source code
+
+`npm run test`
+
 
 ## Development server
 
